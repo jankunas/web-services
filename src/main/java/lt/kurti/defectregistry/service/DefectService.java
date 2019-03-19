@@ -9,7 +9,7 @@ public interface DefectService {
 
 	Defect createDefect(Defect defect);
 
-	Defect updateDefect(Defect defect);
+	Defect updateDefect(Defect defect, Long id);
 
 	List<Defect> getDefects();
 

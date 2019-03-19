@@ -3,8 +3,6 @@ package lt.kurti.defectregistry.web.rest;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.DEFECT_NOT_FOUND_BY_ID;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,9 +44,9 @@ public class DefectResource {
 		return new ResponseEntity<>(result, HttpStatus.CREATED);
 	}
 
-	@PutMapping(value = "/defects", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-	public ResponseEntity<Defect> updateDefect(@RequestBody Defect defect) {
-		final Defect result = defectService.updateDefect(defect);
+	@PutMapping(value = "/defects/{id}", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+	public ResponseEntity<Defect> updateDefect(@RequestBody Defect defect, @PathVariable Long id) {
+		final Defect result = defectService.updateDefect(defect, id);
 
 		return ResponseEntity.ok()
 				.body(result);

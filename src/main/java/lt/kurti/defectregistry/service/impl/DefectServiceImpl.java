@@ -1,5 +1,8 @@
 package lt.kurti.defectregistry.service.impl;
 
+import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.DEFECT_NOT_FOUND_BY_ID;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +10,7 @@ import lt.kurti.defectregistry.domain.Defect;
 import lt.kurti.defectregistry.repository.DefectRepository;
 import lt.kurti.defectregistry.service.DefectService;
 import lt.kurti.defectregistry.validation.DefectValidator;
+import lt.kurti.defectregistry.web.rest.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +29,24 @@ public class DefectServiceImpl implements DefectService {
 
 	@Override
 	public Defect createDefect(final Defect defect) {
-		defectValidator.validatePostRequest(defect);
+		defectValidator.validateRequest(defect);
 
 		return defectRepository.save(defect);
 	}
 
 	@Override
-	public Defect updateDefect(final Defect defect) {
-		defectValidator.validateUpdateRequest(defect);
+	public Defect updateDefect(final Defect defect, final Long id) {
+		defectValidator.validateRequest(defect);
 
-		return defectRepository.save(defect);
+		final Date existingDefectCreationDate = defectRepository.findById(id)
+				.map(Defect::getDateCreated)
+				.orElseThrow(() -> new ResourceNotFoundException(DEFECT_NOT_FOUND_BY_ID));
+
+		defect.setId(id);
+		final Defect updatedDefect = defectRepository.save(defect);
+		updatedDefect.setDateCreated(existingDefectCreationDate);
+
+		return updatedDefect;
 	}
 
 	@Override
@@ -49,6 +61,10 @@ public class DefectServiceImpl implements DefectService {
 
 	@Override
 	public void deleteDefectById(final Long id) {
-		defectRepository.deleteById(id);
+		if (defectRepository.findById(id).isPresent()) {
+			defectRepository.deleteById(id);
+		} else {
+			throw new ResourceNotFoundException(DEFECT_NOT_FOUND_BY_ID);
+		}
 	}
 }

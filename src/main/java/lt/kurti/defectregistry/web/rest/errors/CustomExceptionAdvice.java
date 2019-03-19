@@ -1,6 +1,7 @@
 package lt.kurti.defectregistry.web.rest.errors;
 
 import java.util.Date;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,13 @@ public class CustomExceptionAdvice {
 		return formError(HttpStatus.NOT_FOUND, e);
 	}
 
+	@ExceptionHandler({Exception.class})
+	public ResponseEntity<ErrorMessage> handleGeneralException(final HttpServletResponse res, final Exception e) {
+		return formError(HttpStatus.INTERNAL_SERVER_ERROR, e);
+	}
+
 	private ResponseEntity<ErrorMessage> formError(final HttpStatus status, final Exception e) {
-		final ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage(), HttpStatus.BAD_REQUEST.getReasonPhrase());
+		final ErrorMessage errorMessage = new ErrorMessage(new Date(), e.getMessage(), status.getReasonPhrase());
 		return ResponseEntity.status(status).body(errorMessage);
 	}
 }

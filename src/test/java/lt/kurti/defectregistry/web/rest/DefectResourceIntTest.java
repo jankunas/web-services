@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import lt.kurti.defectregistry.DefectRegistryApplication;
@@ -43,6 +42,10 @@ public class DefectResourceIntTest {
 	private static final String UPDATED_DEFECT_NAME = "Updated Test name";
 	private static final String UPDATED_DEFECT_DESCRIPTION = "Updated Test description";
 
+	private MockMvc restDefectMockMvc;
+
+	private Defect defect;
+
 	@Autowired
 	private DefectService defectService;
 
@@ -54,10 +57,6 @@ public class DefectResourceIntTest {
 
 	@Autowired
 	private EntityManager em;
-
-	private MockMvc restDefectMockMvc;
-
-	private Defect defect;
 
 	@Before
 	public void setup() {
@@ -79,17 +78,17 @@ public class DefectResourceIntTest {
 	@Test
 	@Transactional
 	public void createDefect() throws Exception {
-		int databaseSizeBeforeCreate = defectRepository.findAll().size();
+		final int databaseSizeBeforeCreate = defectRepository.findAll().size();
 
 		restDefectMockMvc.perform(post("/defects")
 				.contentType(APPLICATION_JSON_UTF8)
 				.content(TestUtil.convertObjectToJsonBytes(defect)))
 				.andExpect(status().isCreated());
 
-		List<Defect> defectList = defectRepository.findAll();
+		final List<Defect> defectList = defectRepository.findAll();
 
 		assertThat(defectList).hasSize(databaseSizeBeforeCreate + 1);
-		Defect testDefect = defectList.get(defectList.size() - 1);
+		final Defect testDefect = defectList.get(defectList.size() - 1);
 		assertThat(testDefect.getPriority()).isEqualTo(DefectPriority.HIGH);
 		assertThat(testDefect.getName()).isEqualTo(DEFECT_NAME);
 		assertThat(testDefect.getDescription()).isEqualTo(DEFECT_DESCRIPTION);
@@ -99,7 +98,7 @@ public class DefectResourceIntTest {
 	@Test
 	@Transactional
 	public void createDefectWithExistingId() throws Exception {
-		int databaseSizeBeforeCreate = defectRepository.findAll().size();
+		final int databaseSizeBeforeCreate = defectRepository.findAll().size();
 
 		defect.setId(1L);
 
@@ -108,7 +107,7 @@ public class DefectResourceIntTest {
 				.content(TestUtil.convertObjectToJsonBytes(defect)))
 				.andExpect(status().isBadRequest());
 
-		List<Defect> cartOrderList = defectRepository.findAll();
+		final List<Defect> cartOrderList = defectRepository.findAll();
 		assertThat(cartOrderList).hasSize(databaseSizeBeforeCreate);
 	}
 
@@ -145,26 +144,26 @@ public class DefectResourceIntTest {
 	@Test
 	@Transactional
 	public void updateDefect() throws Exception {
-
 		defectRepository.saveAndFlush(defect);
 
-		int databaseSizeBeforeUpdate = defectRepository.findAll().size();
-
-		Defect updatedDefect = defectRepository.findById(defect.getId()).get();
+		final int databaseSizeBeforeUpdate = defectRepository.findAll().size();
+		final Long defectId = defect.getId();
+		final Defect updatedDefect = defectRepository.findById(defectId).get();
 
 		em.detach(updatedDefect);
 		updatedDefect.setName(UPDATED_DEFECT_NAME);
 		updatedDefect.setDescription(UPDATED_DEFECT_DESCRIPTION);
-		updatedDefect.setDateCreated(null);
+		defect.setId(null);
+		defect.setDateCreated(null);
 
-		restDefectMockMvc.perform(put("/defects")
+		restDefectMockMvc.perform(put("/defects/{id}/", defectId)
 				.contentType(APPLICATION_JSON_UTF8)
 				.content(TestUtil.convertObjectToJsonBytes(defect)))
 				.andExpect(status().isOk());
 
-		List<Defect> defectList = defectRepository.findAll();
+		final List<Defect> defectList = defectRepository.findAll();
 		assertThat(defectList).hasSize(databaseSizeBeforeUpdate);
-		Defect testDefect = defectList.get(defectList.size() - 1);
+		final Defect testDefect = defectList.get(defectList.size() - 1);
 		assertThat(testDefect.getName()).isEqualTo(UPDATED_DEFECT_NAME);
 		assertThat(testDefect.getDescription()).isEqualTo(UPDATED_DEFECT_DESCRIPTION);
 	}
@@ -174,13 +173,13 @@ public class DefectResourceIntTest {
 	public void deleteDefect() throws Exception {
 		defectRepository.saveAndFlush(defect);
 
-		int databaseSizeBeforeDelete = defectRepository.findAll().size();
+		final int databaseSizeBeforeDelete = defectRepository.findAll().size();
 
 		restDefectMockMvc.perform(delete("/defects/{id}", defect.getId()).contentType(APPLICATION_JSON_UTF8)
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isNoContent());
 
-		List<Defect> cartOrderList = defectRepository.findAll();
+		final List<Defect> cartOrderList = defectRepository.findAll();
 		assertThat(cartOrderList).hasSize(databaseSizeBeforeDelete - 1);
 	}
 

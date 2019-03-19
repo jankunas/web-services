@@ -1,8 +1,6 @@
 package lt.kurti.defectregistry.validation;
 
-
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.ID_CANNOT_BE_PRESENT;
-import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.ID_HAS_TO_BE_PRESENT;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.MISSING_FIELDS;
 
 import lt.kurti.defectregistry.domain.Defect;
@@ -31,25 +29,18 @@ public class DefectValidatorTest {
 		defect.setName(TEST_NAME);
 		defect.setPriority(DefectPriority.HIGH);
 		defect.setStatus(DefectStatus.NEW);
-		defect.setDateCreated(null);
 	}
 
 	@Test
 	public void testValidatePostRequestSuccess() {
-		defectValidator.validatePostRequest(defect);
-	}
-
-	@Test
-	public void testValidateUpdateRequestSuccess() {
-		defect.setId(DEFECT_ID);
-		defectValidator.validateUpdateRequest(defect);
+		defectValidator.validateRequest(defect);
 	}
 
 	@Test
 	public void testValidatePostRequestIdIsPresent() {
 		defect.setId(DEFECT_ID);
 		try {
-			defectValidator.validatePostRequest(defect);
+			defectValidator.validateRequest(defect);
 		} catch (InvalidRequestException e) {
 			Assert.assertEquals(ID_CANNOT_BE_PRESENT, e.getMessage());
 		}
@@ -59,27 +50,17 @@ public class DefectValidatorTest {
 	public void testValidatePostRequestPriorityNotPresent() {
 		defect.setPriority(null);
 		try {
-			defectValidator.validatePostRequest(defect);
+			defectValidator.validateRequest(defect);
 		} catch (InvalidRequestException e) {
 			Assert.assertEquals(MISSING_FIELDS + PRIORITY_FIELD, e.getMessage());
 		}
 	}
 
 	@Test
-	public void testValidateUpdateRequestIdNotPresent() {
-		try {
-			defectValidator.validateUpdateRequest(defect);
-		} catch (InvalidRequestException e) {
-			Assert.assertEquals(ID_HAS_TO_BE_PRESENT, e.getMessage());
-		}
-	}
-
-	@Test
 	public void testValidateUpdateRequestStatusNotPresent() {
 		defect.setStatus(null);
-		defect.setId(DEFECT_ID);
 		try {
-			defectValidator.validateUpdateRequest(defect);
+			defectValidator.validateRequest(defect);
 		} catch (InvalidRequestException e) {
 			Assert.assertEquals(MISSING_FIELDS + STATUS_FIELD, e.getMessage());
 		}

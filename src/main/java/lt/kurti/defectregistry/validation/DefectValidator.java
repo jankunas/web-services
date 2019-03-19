@@ -9,10 +9,10 @@ import static lt.kurti.defectregistry.domain.enumeration.DefectStatus.REJECTED;
 import static lt.kurti.defectregistry.domain.enumeration.DefectStatus.RESOLVED;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.CREATION_DATE_CANNOT_BE_PRESENT;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.ID_CANNOT_BE_PRESENT;
-import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.ID_HAS_TO_BE_PRESENT;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.INVALID_PRIORITY_NAME;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.INVALID_STATUS_NAME;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.MISSING_FIELDS;
+import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.MODIFICTIONATION_DATE_CANNOT_BE_PRESENT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,17 +37,9 @@ public class DefectValidator {
 	private List<DefectPriority> defectPriorityList = Arrays.asList(LOW, MEDIUM, HIGH);
 	private List<DefectStatus> defectStatusList = Arrays.asList(NEW, IN_PROGRESS, RESOLVED, REJECTED);
 
-	public void validatePostRequest(final Defect defect) {
+	public void validateRequest(final Defect defect) {
 		if (defect.getId() != null) {
 			throw new InvalidRequestException(ID_CANNOT_BE_PRESENT);
-		}
-
-		validateDefectBody(defect);
-	}
-
-	public void validateUpdateRequest(final Defect defect) {
-		if (defect.getId() == null) {
-			throw new InvalidRequestException(ID_HAS_TO_BE_PRESENT);
 		}
 
 		validateDefectBody(defect);
@@ -73,6 +65,9 @@ public class DefectValidator {
 	private void validateEmptyFields(final Defect defect) {
 		if (!StringUtils.isEmpty(defect.getDateCreated())) {
 			throw new InvalidRequestException(CREATION_DATE_CANNOT_BE_PRESENT);
+		}
+		if (!StringUtils.isEmpty(defect.getDateUpdated())) {
+			throw new InvalidRequestException(MODIFICTIONATION_DATE_CANNOT_BE_PRESENT);
 		}
 
 		final String invalidFieldNames = collectInvalidFieldNames(defect);
