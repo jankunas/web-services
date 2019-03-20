@@ -1,20 +1,10 @@
-# Start with a base image containing Java runtime
-FROM openjdk:8-jdk-alpine
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
-# Add Maintainer Info
-LABEL maintainer="sarunasjankunas"
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
-
-# Make port 8080 available to the world outside this container
+FROM openjdk:11-jre-slim
+COPY --from=build /home/app/target/defect-registry-0.0.1-SNAPSHOT.jar /usr/local/lib/defect-registry.jar
 EXPOSE 8090
-
-# The application's jar file
-ARG JAR_FILE=target/defect-registry-0.0.1-SNAPSHOT.jar
-
-# Add the application's jar to the container
-ADD ${JAR_FILE} defect-registry.jar
-
-# Run the jar file 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/defect-registry.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/defect-registry.jar"]
