@@ -11,6 +11,8 @@ public interface DefectService {
 
 	Defect updateDefect(Defect defect, Long id);
 
+	Defect patchDefect(Defect defect, Long id);
+
 	List<Defect> getDefects();
 
 	Optional<Defect> getDefectById(Long id);

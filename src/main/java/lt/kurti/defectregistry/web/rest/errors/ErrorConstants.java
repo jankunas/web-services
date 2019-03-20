@@ -9,4 +9,5 @@ public class ErrorConstants {
 	public static String CREATION_DATE_CANNOT_BE_PRESENT = "Creation date cannot be present in the request";
 	public static String MODIFICTIONATION_DATE_CANNOT_BE_PRESENT = "Modification date cannot be present in the request";
 	public static String MISSING_FIELDS = "The following fields are required and cannot be empty: ";
+	public static String INVALID_PUT_REQUESTS = "At least one field should be present - name, description, status, priority";
 }

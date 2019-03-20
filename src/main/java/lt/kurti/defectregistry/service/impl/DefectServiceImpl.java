@@ -13,6 +13,7 @@ import lt.kurti.defectregistry.validation.DefectValidator;
 import lt.kurti.defectregistry.web.rest.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 @Service
 public class DefectServiceImpl implements DefectService {
@@ -45,6 +46,34 @@ public class DefectServiceImpl implements DefectService {
 		defect.setId(id);
 		final Defect updatedDefect = defectRepository.save(defect);
 		updatedDefect.setDateCreated(existingDefectCreationDate);
+
+		return updatedDefect;
+	}
+
+	@Override
+	public Defect patchDefect(final Defect defect, final Long id) {
+		final Defect existingDefect = defectRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(DEFECT_NOT_FOUND_BY_ID));
+
+		defectValidator.validatePatchRequest(defect);
+		defect.setId(id);
+
+		if (!StringUtils.isEmpty(defect.getName())) {
+			existingDefect.setName(defect.getName());
+		}
+		if (!StringUtils.isEmpty(defect.getDescription())) {
+			existingDefect.setDescription(defect.getDescription());
+		}
+		if (!StringUtils.isEmpty(defect.getPriority())) {
+			existingDefect.setPriority(defect.getPriority());
+		}
+		if(!StringUtils.isEmpty(defect.getStatus())) {
+			existingDefect.setStatus(defect.getStatus());
+		}
+
+
+		final Defect updatedDefect = defectRepository.save(existingDefect);
+		updatedDefect.setDateCreated(existingDefect.getDateCreated());
 
 		return updatedDefect;
 	}
