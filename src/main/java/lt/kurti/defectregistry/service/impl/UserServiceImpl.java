@@ -12,6 +12,7 @@ import lt.kurti.defectregistry.web.rest.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,9 +39,8 @@ public class UserServiceImpl implements UserService {
         this.defectRepository = defectRepository;
         this.userResponseTransformer = userResponseTransformer;
         this.userIdentifierRepository = userIdentifierRepository;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
     }
-
 
     @Override
     public User createUserForDefect(final Long id, final User user) {
