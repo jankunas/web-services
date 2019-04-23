@@ -1,0 +1,17 @@
+version: '2'
+services:
+    defect-registry:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        image: defect-registry
+        ports:
+            - 80:8090
+    users-service:
+        build:
+            context: ./Pirmas
+            dockerfile: dockerfile
+        image: users-service
+        ports:
+            - 9000:5000
+        tty: true
