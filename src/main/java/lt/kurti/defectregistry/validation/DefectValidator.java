@@ -48,7 +48,8 @@ public class DefectValidator {
 		if (!StringUtils.isEmpty(defect.getDateUpdated())) {
 			throw new InvalidRequestException(MODIFICTIONATION_DATE_CANNOT_BE_PRESENT);
 		}
-		if (StringUtils.isEmpty(defect.getName()) && StringUtils.isEmpty(defect.getStatus()) && StringUtils.isEmpty(defect.getPriority()) && StringUtils.isEmpty(defect.getDescription())) {
+		if (StringUtils.isEmpty(defect.getName()) && StringUtils.isEmpty(defect.getStatus()) && StringUtils.isEmpty(defect.getPriority())
+				&& StringUtils.isEmpty(defect.getDescription())) {
 			throw new InvalidRequestException(INVALID_PUT_REQUESTS);
 		}
 	}

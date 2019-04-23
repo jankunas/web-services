@@ -2,21 +2,12 @@ package lt.kurti.defectregistry.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.List;
+import javax.persistence.*;
 
 import lt.kurti.defectregistry.domain.enumeration.DefectPriority;
 import lt.kurti.defectregistry.domain.enumeration.DefectStatus;
+import lt.kurti.defectregistry.domain.userservice.User;
 
 @Entity
 @Table(name = "defect")
@@ -45,6 +36,9 @@ public class Defect implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(insertable = false)
 	private Date dateUpdated;
+
+	@OneToMany(mappedBy = "defect")
+	private List<UserIdentifier> users;
 
 	@PrePersist
 	protected void onCreate() {
@@ -110,5 +104,13 @@ public class Defect implements Serializable {
 
 	public void setDateUpdated(final Date dateUpdated) {
 		this.dateUpdated = dateUpdated;
+	}
+
+	public List<UserIdentifier> getUsers() {
+		return users;
+	}
+
+	public void setUser(final UserIdentifier user) {
+		this.users.add(user);
 	}
 }

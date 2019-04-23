@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpStatusCodeException;
 
 @ControllerAdvice
 public class CustomExceptionAdvice {
@@ -19,6 +20,11 @@ public class CustomExceptionAdvice {
 	@ExceptionHandler({ResourceNotFoundException.class})
 	public ResponseEntity<ErrorMessage> handleResourceNotFoundException(final ResourceNotFoundException e) {
 		return formError(HttpStatus.NOT_FOUND, e);
+	}
+
+	@ExceptionHandler({HttpStatusCodeException.class})
+	public ResponseEntity<ErrorMessage> handleHttpStatusCodeException(final HttpStatusCodeException e) {
+		return formError(e.getStatusCode(), e);
 	}
 
 	private ResponseEntity<ErrorMessage> formError(final HttpStatus status, final Exception e) {

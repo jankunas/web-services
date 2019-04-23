@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 import lt.kurti.defectregistry.domain.Defect;
+import lt.kurti.defectregistry.domain.userservice.Data;
+import lt.kurti.defectregistry.domain.userservice.User;
 import lt.kurti.defectregistry.service.DefectService;
 import lt.kurti.defectregistry.web.rest.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

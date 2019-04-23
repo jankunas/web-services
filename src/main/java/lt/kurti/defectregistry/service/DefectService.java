@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import lt.kurti.defectregistry.domain.Defect;
+import lt.kurti.defectregistry.domain.userservice.User;
 
 public interface DefectService {
 
