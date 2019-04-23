@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         final Optional<String> email = getEmailByIdentifier(defect, userId);
 
         if (email.isPresent()) {
-            final UserResponse userResponse = makePatchRequestForUser(email.get(), user);
+            final UserResponse userResponse = makePutRequestForUser(email.get(), user);
             if (!userResponse.getData().getEmail().equals(userId)) {
                 updateUser(userId, defect, userResponse);
             }
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
         final Optional<String> email = getEmailByIdentifier(defect, userId);
 
         if (email.isPresent()) {
-            final UserResponse userResponse = makePutRequestForUser(email.get(), user);
+            final UserResponse userResponse = makePatchRequestForUser(email.get(), user);
             if (!userResponse.getData().getEmail().equals(userId)) {
                 updateUser(userId, defect, userResponse);
             }
