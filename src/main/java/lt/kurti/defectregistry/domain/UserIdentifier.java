@@ -1,6 +1,7 @@
 package lt.kurti.defectregistry.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 
@@ -13,6 +14,13 @@ public class UserIdentifier {
     private Long id;
 
     private String email;
+
+    @Transient
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String firstName;
+    @Transient
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private String lastName;
 
     @ManyToOne
     @JsonIgnore
@@ -41,5 +49,21 @@ public class UserIdentifier {
 
     public void setDefect(final Defect defect) {
         this.defect = defect;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -67,8 +68,8 @@ public class DefectResource {
 	}
 
 	@GetMapping(value = "/defects/{id}", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
-	public ResponseEntity<Defect> getDefectById(@PathVariable Long id) {
-		final Optional<Defect> result = defectService.getDefectById(id);
+	public ResponseEntity<Defect> getDefectById(@PathVariable Long id, @RequestParam(value = "embedded", required=false) final String embedded) {
+		final Optional<Defect> result = defectService.getDefectById(id, embedded);
 
 		return result
 				.map((response) -> ResponseEntity.ok().body(response))

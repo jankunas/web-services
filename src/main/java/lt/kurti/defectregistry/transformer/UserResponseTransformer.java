@@ -1,5 +1,7 @@
 package lt.kurti.defectregistry.transformer;
 
+import lt.kurti.defectregistry.domain.Defect;
+import lt.kurti.defectregistry.domain.UserIdentifier;
 import lt.kurti.defectregistry.domain.userservice.User;
 import lt.kurti.defectregistry.domain.userservice.UserResponse;
 import org.springframework.stereotype.Service;
@@ -16,5 +18,19 @@ public class UserResponseTransformer {
 
         return user;
     }
+
+    public User transformDefectRequestBodyToUser(final Defect defect) {
+        final User user = new User();
+
+        final UserIdentifier userIdentifier = defect.getUsers().get(0);
+
+        user.setEmail(userIdentifier.getEmail());
+        user.setFirstName(userIdentifier.getFirstName());
+        user.setLastName(userIdentifier.getLastName());
+
+        return user;
+
+    }
+
 
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import lt.kurti.defectregistry.domain.Defect;
-import lt.kurti.defectregistry.domain.userservice.User;
 
 public interface DefectService {
 
@@ -16,7 +15,7 @@ public interface DefectService {
 
 	List<Defect> getDefects();
 
-	Optional<Defect> getDefectById(Long id);
+	Optional<Defect> getDefectById(Long id, final String embedded);
 
 	void deleteDefectById(Long id);
 }
