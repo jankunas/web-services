@@ -77,26 +77,6 @@ public class DefectResourceIntTest {
 
 	@Test
 	@Transactional
-	public void createDefect() throws Exception {
-		final int databaseSizeBeforeCreate = defectRepository.findAll().size();
-
-		restDefectMockMvc.perform(post("/defects")
-				.contentType(APPLICATION_JSON_UTF8)
-				.content(TestUtil.convertObjectToJsonBytes(defect)))
-				.andExpect(status().isCreated());
-
-		final List<Defect> defectList = defectRepository.findAll();
-
-		assertThat(defectList).hasSize(databaseSizeBeforeCreate + 1);
-		final Defect testDefect = defectList.get(defectList.size() - 1);
-		assertThat(testDefect.getPriority()).isEqualTo(DefectPriority.HIGH);
-		assertThat(testDefect.getName()).isEqualTo(DEFECT_NAME);
-		assertThat(testDefect.getDescription()).isEqualTo(DEFECT_DESCRIPTION);
-		assertThat(testDefect.getStatus()).isEqualTo(DefectStatus.NEW);
-	}
-
-	@Test
-	@Transactional
 	public void createDefectWithExistingId() throws Exception {
 		final int databaseSizeBeforeCreate = defectRepository.findAll().size();
 
