@@ -8,7 +8,7 @@ Follow steps below in order to launch the application:
 
 ## How to use SOAP service
 
-```POST http://localhost:8090/ws```
+```POST http://localhost:80/ws```
 
 ### Get Defects
 ```
