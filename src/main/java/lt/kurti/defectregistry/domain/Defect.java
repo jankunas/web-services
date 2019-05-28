@@ -1,6 +1,7 @@
 package lt.kurti.defectregistry.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -37,7 +38,7 @@ public class Defect implements Serializable {
 	@Column(insertable = false)
 	private Date dateUpdated;
 
-	@OneToMany(mappedBy = "defect")
+	@OneToMany(mappedBy = "defect", cascade = CascadeType.REMOVE)
 	private List<UserIdentifier> users;
 
 	@PrePersist
@@ -111,6 +112,9 @@ public class Defect implements Serializable {
 	}
 
 	public void setUser(final UserIdentifier user) {
+		if (users == null) {
+			users = new ArrayList<>();
+		}
 		this.users.add(user);
 	}
 }

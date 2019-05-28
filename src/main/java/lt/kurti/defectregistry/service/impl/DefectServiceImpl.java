@@ -49,7 +49,9 @@ public class DefectServiceImpl implements DefectService {
 
         final User user = userResponseTransformer.transformDefectRequestBodyToUser(defect);
 
-        userService.createUserForDefect(persistedDefect.getId(), user);
+        if (user != null) {
+            userService.createUserForDefect(persistedDefect.getId(), user);
+        }
 
         return persistedDefect;
     }

@@ -6,7 +6,169 @@ Follow steps below in order to launch the application:
 
 1. ```docker-compose up --build -d```
 
-## How to use the api
+## How to use SOAP service
+
+```POST http://localhost:8090/ws```
+
+### Get Defects
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:getDefectsRequest></wsdl:getDefectsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### GET Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:getDefectRequest>
+         <wsdl:id>1</wsdl:id>
+      </wsdl:getDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### GET User(s) Associated with the Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:getUserForDefectRequest>
+         <wsdl:defectId>4</wsdl:defectId>
+         <wsdl:email>testnew@gmail.com</wsdl:email>
+      </wsdl:getUserForDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:getUsersForDefectRequest>
+         <wsdl:defectId>4</wsdl:defectId>
+      </wsdl:getUsersForDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Create Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:createDefectRequest>
+         <wsdl:description>new description</wsdl:description>
+         <wsdl:name>new name</wsdl:name>
+         <wsdl:priority>HIGH</wsdl:priority>
+         <wsdl:user>
+            <wsdl:email>testnew@gmail.com</wsdl:email>
+            <wsdl:firstName>name</wsdl:firstName>
+            <wsdl:lastName>lastName</wsdl:lastName>
+         </wsdl:user>
+         <wsdl:status>NEW</wsdl:status>
+      </wsdl:createDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Create User to Associate with the Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:addUserToDefectRequest>
+         <wsdl:defectId>1</wsdl:defectId>
+         <wsdl:user>
+            <wsdl:email>testas@gmail.com</wsdl:email>
+            <wsdl:firstName>testas</wsdl:firstName>
+            <wsdl:lastName>testas</wsdl:lastName>
+         </wsdl:user>
+      </wsdl:addUserToDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### PUT User Associated with the Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchUserToDefectRequest>
+         <wsdl:defectId>3</wsdl:defectId>
+         <wsdl:email>testasasazZZZ@gmail.com</wsdl:email>
+         <wsdl:user>
+            <wsdl:firstName>FirstNamez</wsdl:firstName>
+            <wsdl:email>testasasazZZZ@gmail.com</wsdl:email>
+            <wsdl:lastName>lastName</wsdl:lastName>
+         </wsdl:user>
+      </wsdl:patchUserToDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### PATCH User Associated with the Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchUserToDefectRequest>
+         <wsdl:defectId>3</wsdl:defectId>
+         <wsdl:email>testasasazZZZ@gmail.com</wsdl:email>
+         <wsdl:user>
+            <wsdl:firstName>FirstNamez</wsdl:firstName>
+            <wsdl:email>testasasazZZZ@gmail.com</wsdl:email>
+            <wsdl:lastName>lastName</wsdl:lastName>
+         </wsdl:user>
+      </wsdl:patchUserToDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Patch Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchDefectRequest>
+         <wsdl:id>1</wsdl:id>
+         <wsdl:description>updated description</wsdl:description>
+         <wsdl:name>updated name</wsdl:name>
+      </wsdl:patchDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Put Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchDefectRequest>
+         <wsdl:id>1</wsdl:id>
+         <wsdl:description>updated description</wsdl:description>
+         <wsdl:name>updated name</wsdl:name>
+         <wsdl:priority>HIGH</wsdl:priority>
+         <wsdl:status>REJECTED</wsdl:status>
+      </wsdl:patchDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Delete Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:deleteDefectRequest>
+         <wsdl:id>3</wsdl:id>
+      </wsdl:deleteDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+## How to use the rest api
 
 ### GET Defects
 ```

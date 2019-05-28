@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.kurti.lt/defectregistry/wsdl"
+		   targetNamespace="http://www.kurti.lt/defectregistry/wsdl" elementFormDefault="qualified">
+
+	<xs:element name="deleteUserForDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long"/>
+				<xs:element name="email" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="patchUserToDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long" />
+				<xs:element name="email" type="xs:string"/>
+				<xs:element name="user" type="tns:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="putUserToDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long" />
+				<xs:element name="email" type="xs:string"/>
+				<xs:element name="user" type="tns:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUserForDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long"/>
+				<xs:element name="email" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUsersResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:user" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUsersForDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="user" type="tns:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="addUserToDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defectId" type="xs:long" />
+				<xs:element name="user" type="tns:user" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="deleteDefectResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="message" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="patchDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long" />
+				<xs:element name="description" type="xs:string" minOccurs="0"/>
+				<xs:element name="name" type="xs:string" minOccurs="0"/>
+				<xs:element name="priority" type="tns:defectPriority" minOccurs="0"/>
+				<xs:element name="status" type="tns:defectStatus" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="updateDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"/>
+				<xs:element name="description" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="priority" type="tns:defectPriority" />
+				<xs:element name="status" type="tns:defectStatus" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="createDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="description" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="priority" type="tns:defectPriority" />
+				<xs:element name="user" type="tns:userIdentifier" minOccurs="0" />
+				<xs:element name="status" type="tns:defectStatus" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getDefectsRequest">
+	</xs:element>
+
+	<xs:element name="getDefectRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:long"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getDefectResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defect" type="tns:defect"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="getDefectsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="defect" type="tns:defect" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="user">
+		<xs:sequence>
+			<xs:element name="email" type="xs:string"/>
+			<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="defect">
+		<xs:sequence>
+			<xs:element name="dateCreated" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="dateUpdated" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="description" type="xs:string" minOccurs="0"/>
+			<xs:element name="id" type="xs:long" minOccurs="0"/>
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="priority" type="tns:defectPriority" minOccurs="0"/>
+			<xs:element name="user" type="tns:userIdentifier" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="status" type="tns:defectStatus" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="userIdentifier">
+		<xs:sequence>
+			<xs:element name="defect" type="tns:defect" minOccurs="0"/>
+			<xs:element name="email" type="xs:string" minOccurs="0"/>
+			<xs:element name="firstName" type="xs:string" minOccurs="0"/>
+			<xs:element name="id" type="xs:long" minOccurs="0"/>
+			<xs:element name="lastName" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="defectPriority">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LOW"/>
+			<xs:enumeration value="MEDIUM"/>
+			<xs:enumeration value="HIGH"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="defectStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEW"/>
+			<xs:enumeration value="IN_PROGRESS"/>
+			<xs:enumeration value="RESOLVED"/>
+			<xs:enumeration value="REJECTED"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

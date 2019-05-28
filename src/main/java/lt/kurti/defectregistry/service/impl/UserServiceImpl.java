@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.DEFECT_NOT_FOUND_BY_ID;
 import static lt.kurti.defectregistry.web.rest.errors.ErrorConstants.USER_ID_NOT_ASSOCIATED;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -43,6 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User createUserForDefect(final Long id, final User user) {
         final Defect defect = getDefectById(id);
 
@@ -54,6 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<User> getUsersForDefect(final Long id) {
         final Defect defect = getDefectById(id);
 
@@ -61,6 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User getUserByIdForDefect(final Long defectId, final String userId) {
         final Defect defect = getDefectById(defectId);
 
@@ -73,6 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User updateUserForDefect(final User user, final Long defectId, final String userId) {
         final Defect defect = getDefectById(defectId);
 
@@ -116,6 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User patchUserForDefect(final User user, final Long defectId, final String userId) {
         final Defect defect = getDefectById(defectId);
 
@@ -132,6 +139,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUserForDefect(final Long defectId, final String userId) {
         final Defect defect = getDefectById(defectId);
 
@@ -183,6 +191,5 @@ public class UserServiceImpl implements UserService {
         final HttpEntity<User> request = new HttpEntity<>(user);
         return restTemplate.postForObject(userServiceUrl, request, UserResponse.class);
     }
-
 
 }

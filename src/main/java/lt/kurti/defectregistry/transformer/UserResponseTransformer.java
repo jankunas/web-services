@@ -20,17 +20,18 @@ public class UserResponseTransformer {
     }
 
     public User transformDefectRequestBodyToUser(final Defect defect) {
-        final User user = new User();
+        if (defect.getUsers() != null) {
+            final User user = new User();
 
-        final UserIdentifier userIdentifier = defect.getUsers().get(0);
+            final UserIdentifier userIdentifier = defect.getUsers().get(0);
 
-        user.setEmail(userIdentifier.getEmail());
-        user.setFirstName(userIdentifier.getFirstName());
-        user.setLastName(userIdentifier.getLastName());
+            user.setEmail(userIdentifier.getEmail());
+            user.setFirstName(userIdentifier.getFirstName());
+            user.setLastName(userIdentifier.getLastName());
 
-        return user;
-
+            return user;
+        }
+        return null;
     }
-
 
 }
