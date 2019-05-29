@@ -114,10 +114,15 @@ public class UserServiceImpl implements UserService {
 
 	private void updateUser(final String email, final Defect defect, final UserResponse userResponse) {
 		final UserIdentifier userIdentifier = new UserIdentifier();
-		userIdentifier.setDefect(defect);
 		userIdentifier.setEmail(userResponse.getData().getEmail());
 		userIdentifier.setId(getIdByEmail(defect, email).get());
-		userIdentifierRepository.save(dtoTransformer.convertToDomainUserIdentifier(userIdentifier));
+
+		final lt.kurti.defectregistry.domain.Defect domainDefect = dtoTransformer.convertToDomainDefect(defect);
+		final lt.kurti.defectregistry.domain.UserIdentifier domainUserIdentifier = dtoTransformer.convertToDomainUserIdentifier(userIdentifier);
+
+		domainUserIdentifier.setDefect(domainDefect);
+
+		userIdentifierRepository.save(domainUserIdentifier);
 	}
 
 	private Optional<Long> getIdByEmail(final Defect defect, final String email) {

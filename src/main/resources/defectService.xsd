@@ -89,30 +89,6 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="patchDefectRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="id" type="xs:long" />
-				<xs:element name="description" type="xs:string" minOccurs="0"/>
-				<xs:element name="name" type="xs:string" minOccurs="0"/>
-				<xs:element name="priority" type="tns:defectPriority" minOccurs="0"/>
-				<xs:element name="status" type="tns:defectStatus" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-
-	<xs:element name="updateDefectRequest">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="id" type="xs:long"/>
-				<xs:element name="description" type="xs:string" />
-				<xs:element name="name" type="xs:string" />
-				<xs:element name="priority" type="tns:defectPriority" />
-				<xs:element name="status" type="tns:defectStatus" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-
 	<xs:element name="createDefectRequest">
 		<xs:complexType>
 			<xs:sequence>
@@ -120,6 +96,7 @@
 				<xs:element name="name" type="xs:string" />
 				<xs:element name="priority" type="tns:defectPriority" />
 				<xs:element name="user" type="tns:userIdentifier" minOccurs="0" />
+				<xs:element name="id" type="xs:long" minOccurs="0" />
 				<xs:element name="status" type="tns:defectStatus" />
 			</xs:sequence>
 		</xs:complexType>
@@ -175,7 +152,6 @@
 
 	<xs:complexType name="userIdentifier">
 		<xs:sequence>
-			<xs:element name="defect" type="tns:defect" minOccurs="0"/>
 			<xs:element name="email" type="xs:string" minOccurs="0"/>
 			<xs:element name="firstName" type="xs:string" minOccurs="0"/>
 			<xs:element name="id" type="xs:long" minOccurs="0"/>

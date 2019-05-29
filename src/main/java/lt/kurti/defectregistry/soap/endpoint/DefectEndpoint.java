@@ -64,30 +64,20 @@ public class DefectEndpoint {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "createDefectRequest")
 	@ResponsePayload
 	public GetDefectResponse addDefect(@RequestPayload CreateDefectRequest createDefectRequest) {
-		final Defect defect = defectService.createDefect(createDefectRequest);
+		if (defectService.getDefectById(createDefectRequest.getId()) != null) {
+			return patchDefect(createDefectRequest);
+		} else {
+			final Defect defect = defectService.createDefect(createDefectRequest);
 
-		GetDefectResponse getDefectResponse = new GetDefectResponse();
-		getDefectResponse.setDefect(defect);
+			GetDefectResponse getDefectResponse = new GetDefectResponse();
+			getDefectResponse.setDefect(defect);
 
-		return getDefectResponse;
+			return getDefectResponse;
+		}
 	}
 
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateDefectRequest")
-	@ResponsePayload
-	public GetDefectResponse updateDefect(@RequestPayload UpdateDefectRequest updateDefectRequest) {
-		final Defect result = defectService.updateDefect(updateDefectRequest);
-
-		final GetDefectResponse getDefectResponse = new GetDefectResponse();
-
-		getDefectResponse.setDefect(result);
-
-		return getDefectResponse;
-	}
-
-	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "patchDefectRequest")
-	@ResponsePayload
-	public GetDefectResponse patchDefect(@RequestPayload PatchDefectRequest patchDefectRequest) {
-		final Defect result = defectService.patchDefect(patchDefectRequest);
+	private GetDefectResponse patchDefect(@RequestPayload CreateDefectRequest createDefectRequest) {
+		final Defect result = defectService.patchDefect(createDefectRequest);
 
 		final GetDefectResponse getDefectResponse = new GetDefectResponse();
 

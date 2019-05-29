@@ -14,7 +14,7 @@ public interface DefectService {
 
 	Defect updateDefect(UpdateDefectRequest updateDefectRequest);
 
-	Defect patchDefect(PatchDefectRequest patchDefectRequest);
+	Defect patchDefect(CreateDefectRequest patchDefectRequest);
 
 	List<Defect> getDefects();
 

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DTOTransformer {
 
-	public Defect convertPatchDefectRequestToDefect(final PatchDefectRequest patchDefectRequest) {
+	public Defect convertPatchDefectRequestToDefect(final CreateDefectRequest patchDefectRequest) {
 		final Defect defect = new Defect();
 
 		defect.setId(patchDefectRequest.getId());

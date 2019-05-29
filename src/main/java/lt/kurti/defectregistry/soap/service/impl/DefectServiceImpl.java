@@ -98,10 +98,10 @@ public class DefectServiceImpl implements DefectService {
 
 	@Override
 	@Transactional
-	public Defect patchDefect(final PatchDefectRequest patchDefectRequest) {
+	public Defect patchDefect(final CreateDefectRequest patchDefectRequest) {
 		final Defect defect = dtoTransformer.convertPatchDefectRequestToDefect(patchDefectRequest);
 
-		defectValidator.validatePatchRequest(defect);
+		//defectValidator.validatePatchRequest(defect);
 
 		final Defect existingDefect = defectRepository.findById(defect.getId())
 				.map(dtoTransformer::convertToWsdlDefect)
