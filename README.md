@@ -31,6 +31,59 @@ Follow steps below in order to launch the application:
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+## Create Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:createDefectRequest>
+         <wsdl:description>new new description</wsdl:description>
+         <wsdl:name>new name</wsdl:name>
+         <wsdl:priority>HIGH</wsdl:priority>
+         <wsdl:status>NEW</wsdl:status>
+      </wsdl:createDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Patch Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchDefectRequest>
+         <wsdl:id>1</wsdl:id>
+         <wsdl:description>updated description</wsdl:description>
+         <wsdl:name>updated name</wsdl:name>
+      </wsdl:patchDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Put Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:patchDefectRequest>
+         <wsdl:id>1</wsdl:id>
+         <wsdl:description>updated description</wsdl:description>
+         <wsdl:name>updated name</wsdl:name>
+         <wsdl:priority>HIGH</wsdl:priority>
+         <wsdl:status>REJECTED</wsdl:status>
+      </wsdl:patchDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Delete Defect
+```
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wsdl:deleteDefectRequest>
+         <wsdl:id>3</wsdl:id>
+      </wsdl:deleteDefectRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
 
 ### GET User(s) Associated with the Defect
 ```
@@ -56,7 +109,7 @@ Follow steps below in order to launch the application:
 </soapenv:Envelope>
 ```
 
-### Create Defect
+### Create Defect With User
 ```
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
    <soapenv:Header/>
@@ -129,45 +182,6 @@ Follow steps below in order to launch the application:
 </soapenv:Envelope>
 ```
 
-### Patch Defect
-```
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <wsdl:patchDefectRequest>
-         <wsdl:id>1</wsdl:id>
-         <wsdl:description>updated description</wsdl:description>
-         <wsdl:name>updated name</wsdl:name>
-      </wsdl:patchDefectRequest>
-   </soapenv:Body>
-</soapenv:Envelope>
-```
-### Put Defect
-```
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <wsdl:patchDefectRequest>
-         <wsdl:id>1</wsdl:id>
-         <wsdl:description>updated description</wsdl:description>
-         <wsdl:name>updated name</wsdl:name>
-         <wsdl:priority>HIGH</wsdl:priority>
-         <wsdl:status>REJECTED</wsdl:status>
-      </wsdl:patchDefectRequest>
-   </soapenv:Body>
-</soapenv:Envelope>
-```
-### Delete Defect
-```
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://www.kurti.lt/defectregistry/wsdl">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <wsdl:deleteDefectRequest>
-         <wsdl:id>3</wsdl:id>
-      </wsdl:deleteDefectRequest>
-   </soapenv:Body>
-</soapenv:Envelope>
-```
 ## How to use the rest api
 
 ### GET Defects
