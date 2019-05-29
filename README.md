@@ -7,8 +7,8 @@ Follow steps below in order to launch the application:
 1. ```docker-compose up --build -d```
 
 ## How to use SOAP service
-
-```POST http://localhost:80/ws```
+Wsdl Location:
+```http://localhost:8090/ws/defects.wsdl```
 
 ### Get Defects
 ```
