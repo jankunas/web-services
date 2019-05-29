@@ -1,0 +1,362 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.kurti.lt/defectregistry/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.kurti.lt/defectregistry/wsdl" targetNamespace="http://www.kurti.lt/defectregistry/wsdl">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.kurti.lt/defectregistry/wsdl">
+			<xs:element name="deleteUserForDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+						<xs:element name="email" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="patchUserToDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+						<xs:element name="email" type="xs:string"/>
+						<xs:element name="user" type="tns:user"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="putUserToDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+						<xs:element name="email" type="xs:string"/>
+						<xs:element name="user" type="tns:user"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getUserForDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+						<xs:element name="email" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getUsersResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="user" type="tns:user"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getUsersForDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getUserResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="user" type="tns:user"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addUserToDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defectId" type="xs:long"/>
+						<xs:element name="user" type="tns:user"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="deleteDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="deleteDefectResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="message" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="patchDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:long"/>
+						<xs:element minOccurs="0" name="description" type="xs:string"/>
+						<xs:element minOccurs="0" name="name" type="xs:string"/>
+						<xs:element minOccurs="0" name="priority" type="tns:defectPriority"/>
+						<xs:element minOccurs="0" name="status" type="tns:defectStatus"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="updateDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:long"/>
+						<xs:element name="description" type="xs:string"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="priority" type="tns:defectPriority"/>
+						<xs:element name="status" type="tns:defectStatus"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="createDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="description" type="xs:string"/>
+						<xs:element name="name" type="xs:string"/>
+						<xs:element name="priority" type="tns:defectPriority"/>
+						<xs:element minOccurs="0" name="user" type="tns:userIdentifier"/>
+						<xs:element name="status" type="tns:defectStatus"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDefectsRequest"> </xs:element>
+			<xs:element name="getDefectRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:long"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDefectResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="defect" type="tns:defect"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDefectsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="defect" type="tns:defect"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="user">
+				<xs:sequence>
+					<xs:element name="email" type="xs:string"/>
+					<xs:element minOccurs="0" name="firstName" type="xs:string"/>
+					<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="defect">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="dateCreated" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="dateUpdated" type="xs:dateTime"/>
+					<xs:element minOccurs="0" name="description" type="xs:string"/>
+					<xs:element minOccurs="0" name="id" type="xs:long"/>
+					<xs:element minOccurs="0" name="name" type="xs:string"/>
+					<xs:element minOccurs="0" name="priority" type="tns:defectPriority"/>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="user" type="tns:userIdentifier"/>
+					<xs:element minOccurs="0" name="status" type="tns:defectStatus"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="userIdentifier">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="defect" type="tns:defect"/>
+					<xs:element minOccurs="0" name="email" type="xs:string"/>
+					<xs:element minOccurs="0" name="firstName" type="xs:string"/>
+					<xs:element minOccurs="0" name="id" type="xs:long"/>
+					<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="defectPriority">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="LOW"/>
+					<xs:enumeration value="MEDIUM"/>
+					<xs:enumeration value="HIGH"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="defectStatus">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="NEW"/>
+					<xs:enumeration value="IN_PROGRESS"/>
+					<xs:enumeration value="RESOLVED"/>
+					<xs:enumeration value="REJECTED"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getUserForDefectRequest">
+		<wsdl:part element="tns:getUserForDefectRequest" name="getUserForDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteDefectResponse">
+		<wsdl:part element="tns:deleteDefectResponse" name="deleteDefectResponse"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getUsersResponse">
+		<wsdl:part element="tns:getUsersResponse" name="getUsersResponse"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteDefectRequest">
+		<wsdl:part element="tns:deleteDefectRequest" name="deleteDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="addUserToDefectRequest">
+		<wsdl:part element="tns:addUserToDefectRequest" name="addUserToDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="updateDefectRequest">
+		<wsdl:part element="tns:updateDefectRequest" name="updateDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getUsersForDefectRequest">
+		<wsdl:part element="tns:getUsersForDefectRequest" name="getUsersForDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="patchDefectRequest">
+		<wsdl:part element="tns:patchDefectRequest" name="patchDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createDefectRequest">
+		<wsdl:part element="tns:createDefectRequest" name="createDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="patchUserToDefectRequest">
+		<wsdl:part element="tns:patchUserToDefectRequest" name="patchUserToDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="putUserToDefectRequest">
+		<wsdl:part element="tns:putUserToDefectRequest" name="putUserToDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDefectRequest">
+		<wsdl:part element="tns:getDefectRequest" name="getDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteUserForDefectRequest">
+		<wsdl:part element="tns:deleteUserForDefectRequest" name="deleteUserForDefectRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getUserResponse">
+		<wsdl:part element="tns:getUserResponse" name="getUserResponse"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDefectResponse">
+		<wsdl:part element="tns:getDefectResponse" name="getDefectResponse"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDefectsRequest">
+		<wsdl:part element="tns:getDefectsRequest" name="getDefectsRequest"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="getDefectsResponse">
+		<wsdl:part element="tns:getDefectsResponse" name="getDefectsResponse"> </wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="DefectsPort">
+		<wsdl:operation name="getUserForDefect">
+			<wsdl:input message="tns:getUserForDefectRequest" name="getUserForDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="deleteDefect">
+			<wsdl:input message="tns:deleteDefectRequest" name="deleteDefectRequest"> </wsdl:input>
+			<wsdl:output message="tns:deleteDefectResponse" name="deleteDefectResponse"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addUserToDefect">
+			<wsdl:input message="tns:addUserToDefectRequest" name="addUserToDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="updateDefect">
+			<wsdl:input message="tns:updateDefectRequest" name="updateDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getUsersForDefect">
+			<wsdl:input message="tns:getUsersForDefectRequest" name="getUsersForDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="patchDefect">
+			<wsdl:input message="tns:patchDefectRequest" name="patchDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="createDefect">
+			<wsdl:input message="tns:createDefectRequest" name="createDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="patchUserToDefect">
+			<wsdl:input message="tns:patchUserToDefectRequest" name="patchUserToDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="putUserToDefect">
+			<wsdl:input message="tns:putUserToDefectRequest" name="putUserToDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getDefect">
+			<wsdl:input message="tns:getDefectRequest" name="getDefectRequest"> </wsdl:input>
+			<wsdl:output message="tns:getDefectResponse" name="getDefectResponse"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteUserForDefect">
+			<wsdl:input message="tns:deleteUserForDefectRequest" name="deleteUserForDefectRequest"> </wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getDefects">
+			<wsdl:input message="tns:getDefectsRequest" name="getDefectsRequest"> </wsdl:input>
+			<wsdl:output message="tns:getDefectsResponse" name="getDefectsResponse"> </wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DefectsPortSoap11" type="tns:DefectsPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getUserForDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getUserForDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="deleteDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="deleteDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="deleteDefectResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="addUserToDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="addUserToDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="updateDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="updateDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getUsersForDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getUsersForDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="patchDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="patchDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="createDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="createDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="patchUserToDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="patchUserToDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="putUserToDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="putUserToDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDefectResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="deleteUserForDefect">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="deleteUserForDefectRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="getDefects">
+			<soap:operation soapAction=""/>
+			<wsdl:input name="getDefectsRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getDefectsResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DefectsPortService">
+		<wsdl:port binding="tns:DefectsPortSoap11" name="DefectsPortSoap11">
+			<soap:address location="http://localhost:8090/ws"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
